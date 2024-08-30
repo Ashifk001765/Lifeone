@@ -7,16 +7,17 @@
             {
                 foreach (var item in Model.LstMenu)
                 {
-                 <li>
+                <li>
                     <a href="/Home/Products?id=@AesEncryption.Crypto.Encryption("LifeWellAP1234@Z",@item.Pk_ProductTypeId.ToString())">
                         <span class="border-hover-target">
                             @item.ProductType
                         </span>
                     </a>
-                 </li>
-                }
-             }         
-     </ul>   
-</li>
+                </li>
+            }
+        }
+        </ul>
+    </li>
+
 
 

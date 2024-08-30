@@ -403,6 +403,7 @@ namespace LifeOne.Controllers
                     listdata1.Pk_ProductId = int.Parse(dataSet.Tables[0].Rows[i]["Pk_ProductId"].ToString());
                     listdata1.ProductName = dataSet.Tables[0].Rows[i]["ProductName"].ToString();
                     listdata1.DP = dataSet.Tables[0].Rows[i]["DP"].ToString();
+                    listdata1.MRP = dataSet.Tables[0].Rows[i]["MRP"].ToString();
                     listdata1.OfferedPrice = dataSet.Tables[0].Rows[i]["OfferedPrice"].ToString();
                     listdata1.ReviewCount = dataSet.Tables[0].Rows[i]["ReviewCount"].ToString();
                     listdata1.TotalRecords = int.Parse(dataSet.Tables[0].Rows[i]["TotalRecords"].ToString());
@@ -2050,7 +2051,6 @@ namespace LifeOne.Controllers
                 Result = int.Parse(model.DtDetails.Rows[0]["Quantity"].ToString());
                 SessionManager.TotalItems = int.Parse(model.DtDetails.Rows[0]["Quantity"].ToString());
                 SessionManager.TokenNo = model.TokenNo;
-
             }
             return new JsonResult { Data = Result, JsonRequestBehavior = System.Web.Mvc.JsonRequestBehavior.AllowGet };
         }

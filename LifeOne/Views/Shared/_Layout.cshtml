@@ -500,19 +500,22 @@
                         <li><a href="#">Management Team</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">Products</a>
+                @{
+                    Html.RenderAction("RenderMenu", "Home");
+                }
+                @*<li>
+            <a href="#">Products</a>
 
-                    <ul>
-                        <li><a href="#">Home Care</a></li>
-                        <li><a href="#">Health Care</a></li>
-                        <li><a href="#">Veda & Nutraceuticals</a></li>
-                        <li><a href="#">Fashion</a></li>
-                        <li><a href="#">Personal Care</a></li>
+            <ul>
+                <li><a href="#">Home Care</a></li>
+                <li><a href="#">Health Care</a></li>
+                <li><a href="#">Veda & Nutraceuticals</a></li>
+                <li><a href="#">Fashion</a></li>
+                <li><a href="#">Personal Care</a></li>
 
-                    </ul>
+            </ul>
 
-                </li>
+        </li>*@
                 <li>
                     <a href="#">Compliance</a>
                     <ul>

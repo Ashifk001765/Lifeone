@@ -39,12 +39,12 @@
         <div class="ptitle">
             <h4 class="mb-1 mt-0">Product Type Master</h4>
             @*<nav aria-label="breadcrumb" class="float-left">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/Admin-Dashboard">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="#-">Masters</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Product Type</li>
-                </ol>
-            </nav>*@
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/Admin-Dashboard">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#-">Masters</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Product Type</li>
+                    </ol>
+                </nav>*@
         </div>
         <div class="pbutton">
             <div class="right text-right">
@@ -110,12 +110,13 @@
                             </div>
 
                         </div>
-                        <div class="table-responsive" >
+                        <div class="table-responsive">
                             <table id="myTable" class="table table-striped mb-0">
                                 <thead>
                                     <tr>
                                         <th>#Sn.</th>
-                                        <th>Product Type Name</th>                                       
+                                        <th>Product Type Name</th>
+                                        <th>Name</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                 </thead>
@@ -125,14 +126,18 @@
                                         <tr>
                                             <td>@(count = count + 1)</td>
                                             <td>@item.ProductType</td>
-                                           
+                                            <td>
+
+                                                <img src="@item.ProductTypeImage" alt="Product Image" style="width: 50px; height: auto; cursor: pointer;" onclick="showLargeImage('@item.ProductTypeImage')" />
+                                            </td>
+
                                             <td class="text-right">
-                                               
-                                                    @if (PermissionManager.IsActionPermit("Product Type", ViewOptions.FormUpdate))
-                                                    {
-                                                        <button type="button" class="btn btn-primary btn-sm" onclick="return OpenPopUp('@item.Pk_ProductTypeId','@item.ProductType','true','@item.ProductTypeImage')" data-toggle="modal" Target="_blank" data-rel="tooltips" ToolTip="Edit" data-target="#myModal4"><i class="fa fa-pencil"></i></button>
-                                                    }
-                                               
+
+                                                @if (PermissionManager.IsActionPermit("Product Type", ViewOptions.FormUpdate))
+                                                {
+                                                    <button type="button" class="btn btn-primary btn-sm" onclick="return OpenPopUp('@item.Pk_ProductTypeId','@item.ProductType','true','@item.ProductTypeImage')" data-toggle="modal" Target="_blank" data-rel="tooltips" ToolTip="Edit" data-target="#myModal4"><i class="fa fa-pencil"></i></button>
+                                                }
+
                                                 @if (PermissionManager.IsActionPermit("Product Type", ViewOptions.FormDelete))
                                                 {
                                                     <a href="/ProducType/ProductTypeDelete?Id=@item.Pk_ProductTypeId" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
@@ -171,15 +176,15 @@
                                 <div class="col-md-12">
                                     <label class="form-control-placeholder" for="name">Product Type Name</label>
                                     <input type="text" class="form-control" name="ProductType" id="ProductType">
-                                    
-                                    
-                                        <label class="form-control-placeholder" for="name">Product Type Image</label><br/>
-                                        <img src="@Model.ProductTypeImage" id="imagePreview" class="" onerror="this.src='/Content/Associate/assets/images/no-img.jpg'" style="height:60px;width:60px;">
-                                        @Html.TextBoxFor(m => m.file, new { @type = "file", @id = "file", @onchange = "UploadFile()" })
 
-                                        @*<input type="Submit" value="Update" name="Update" class="btn btn-warning " onclick="return UploadFile() " id="BtnChangePassword">*@
-                                        @*@Html.HiddenFor(m => m.file, new { @type = "file", @class = "input-text form-control", @onchange = "ShowImagePreview(this)" })*@
-                                        <input type="file" onchange="ShowImagePreview(this)" hidden />
+
+                                    <label class="form-control-placeholder" for="name">Product Type Image</label><br />
+                                    <img src="@Model.ProductTypeImage" id="imagePreview" class="" onerror="this.src='/Content/Associate/assets/images/no-img.jpg'" style="height:60px;width:60px;">
+                                    @Html.TextBoxFor(m => m.file, new { @type = "file", @id = "file", @onchange = "UploadFile()" })
+
+                                    @*<input type="Submit" value="Update" name="Update" class="btn btn-warning " onclick="return UploadFile() " id="BtnChangePassword">*@
+                                    @*@Html.HiddenFor(m => m.file, new { @type = "file", @class = "input-text form-control", @onchange = "ShowImagePreview(this)" })*@
+                                    <input type="file" onchange="ShowImagePreview(this)" hidden />
 
                                 </div>
 
@@ -199,6 +204,24 @@
 
         </div>
     }
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModalLabel">Product Image</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" alt="Large Product Image" class="img-fluid" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </div>
 <script>
@@ -209,6 +232,10 @@
         $('#Save').val('Save')
         $('#ProductType').val("");
         $("#Save").show();
+    }
+    function showLargeImage(imageUrl) {
+        document.getElementById('modalImage').src = imageUrl;
+        $('#imageModal').modal('show');
     }
 
     function OpenPopUp(pk_id, name, isSpaceOrbit, ProductTypeImage) {
